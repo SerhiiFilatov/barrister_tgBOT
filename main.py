@@ -88,8 +88,8 @@ WEBAPP_HOST = "0.0.0.0"
 
 # Базовый URL для вебхука берется из переменной окружения WEBHOOK_HOST (или RAILWAY_PUBLIC_DOMAIN, если вы ее так настроили).
 # Это должен быть публичный домен вашего сервиса на Railway.
-BASE_WEBHOOK_URL = os.getenv("WEBHOOK_HOST")
-if not BASE_WEBHOOK_URL:
+WEBHOOK_HOST = os.getenv("WEBHOOK_HOST")
+if not WEBHOOK_HOST:
     # Важно: если WEBHOOK_HOST не установлен, бот не сможет установить вебхук.
     # Для Railway это критично.
     print("Внимание: Переменная окружения WEBHOOK_HOST не установлена! Вебхук может быть не установлен.")
@@ -100,7 +100,7 @@ if not BASE_WEBHOOK_URL:
     raise EnvironmentError("WEBHOOK_HOST environment variable is not set. Cannot set up webhook.")
 
 WEBHOOK_PATH = "/webhook"
-WEBHOOK_URL = f"{BASE_WEBHOOK_URL}{WEBHOOK_PATH}"
+WEBHOOK_URL = f"{WEBHOOK_HOST}{WEBHOOK_PATH}"
 
 # ---------- СОЗДАНИЕ ОБЪЕКТОВ ----------
 bot = Bot(
