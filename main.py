@@ -1,6 +1,9 @@
 import asyncio
 import asyncpg
+import os
 from aiohttp import web
+from dotenv import load_dotenv
+
 
 from aiogram import Bot, Dispatcher
 from aiogram.enums import ParseMode
@@ -14,6 +17,7 @@ from bot_dialogs import main_menu, faq, ask_a_lawyer, book_a_consultation
 from bot_handlers import start_exit_menu, get_information_and_stat, admin_menu
 from bot_middlewares.reg_middleware import DbSessionMiddleware
 
+load_dotenv()
 
 async def create_pool():
     return await asyncpg.create_pool(user=settings.db_user,
@@ -24,7 +28,7 @@ async def create_pool():
 
 async def main() -> None:
     bot = Bot(
-        token=settings.bot_token.get_secret_value(),
+        token=os.getenv('BOT_TOKEN'),
         default=DefaultBotProperties(parse_mode=ParseMode.HTML),
     )
     dp = Dispatcher(storage=MemoryStorage())
