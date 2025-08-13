@@ -20,11 +20,11 @@ from bot_middlewares.reg_middleware import DbSessionMiddleware
 load_dotenv()
 
 async def create_pool():
-    return await asyncpg.create_pool(user=settings.db_user,
-                                     password=settings.db_password,
-                                     host=settings.db_host,
-                                     port=settings.db_port,
-                                     database=settings.database)
+    return await asyncpg.create_pool(user=os.getenv('DB_USER'),
+                                     password=os.getenv('DB_PASSWORD'),
+                                     host=os.getenv('DB_HOST'),
+                                     port=os.getenv('DB_PORT'),
+                                     database=os.getenv('DATABASE'))
 
 async def main() -> None:
     bot = Bot(
