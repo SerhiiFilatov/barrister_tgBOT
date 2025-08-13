@@ -12,7 +12,7 @@ from aiogram_dialog import setup_dialogs
 from aiogram.client.default import DefaultBotProperties
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
 
-from config import settings
+# from config import settings
 from bot_dialogs import main_menu, faq, ask_a_lawyer, book_a_consultation
 from bot_handlers import start_exit_menu, get_information_and_stat, admin_menu
 from bot_middlewares.reg_middleware import DbSessionMiddleware

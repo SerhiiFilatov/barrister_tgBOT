@@ -1,4 +1,6 @@
 import re
+import os
+from dotenv import load_dotenv
 from typing import Any
 
 from aiogram_dialog import Dialog, Window
@@ -12,8 +14,8 @@ from datetime import date, timezone, timedelta
 import data_file
 import states
 from bot_database.database import Database
-from config import settings
 
+load_dotenv()
 
 async def on_date_selected(callback: CallbackQuery, widget,
                            manager: DialogManager, selected_date: date):
@@ -81,7 +83,7 @@ async def on_problem_entered(message: Message, widget: TextInput,
     )
     try:
         await manager.middleware_data["bot"].send_message(
-            chat_id=settings.admin_id,
+            chat_id=os.getenv('LAWYER_ID'),
             text=f"Запис на консультацію @{user.username or user.first_name}\n"
                  f"{date_str} о {time_str}\n"
                  f"tel: {phone_str}\n"

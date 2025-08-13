@@ -1,14 +1,17 @@
+import os
+from dotenv import load_dotenv
+
 from aiogram import Router
 from aiogram_dialog import DialogManager
 from aiogram.types import Message, InlineKeyboardMarkup, InlineKeyboardButton
 from aiogram_dialog.widgets.common import ManagedWidget
 
 import states
-from config import settings
+# from config import settings
 from bot_database.database import Database
 
 router: Router = Router()
-
+load_dotenv()
 
 async def handle_question(message: Message, widget: ManagedWidget, manager: DialogManager):
     request: Database = manager.middleware_data["request"]
@@ -27,7 +30,7 @@ async def handle_question(message: Message, widget: ManagedWidget, manager: Dial
                                problem_descr=text)
     try:
         await manager.middleware_data["bot"].send_message(
-            chat_id=settings.admin_id,
+            chat_id=os.getenv('LAWYER_ID'),
             text=f"📩 Нове питання від користувача @{user.username or user.first_name}:\n\n{text}",
             # reply_markup=admin_kb
         )
