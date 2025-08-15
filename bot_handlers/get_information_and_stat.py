@@ -98,8 +98,7 @@ async def process_answer(message: Message, state: FSMContext, request: Database,
         chat_id=question["user_id"],
         text=f"💌 Відповідь на ваше питання: \n\n{message.text}"
     )
-
-    await request.mark_question_as_executed(question_id)
+    print(message.text)
 
     await message.answer("✅ Відповідь відправлена користувачу.")
 
@@ -114,4 +113,5 @@ async def process_answer(message: Message, state: FSMContext, request: Database,
         question_index = 0
 
     await show_question(message, questions, question_index)
+    await request.mark_question_as_executed(answer=message.text, question_id=question_id)
     await state.clear()

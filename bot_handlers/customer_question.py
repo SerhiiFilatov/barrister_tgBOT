@@ -19,12 +19,6 @@ async def handle_question(message: Message, widget: ManagedWidget, manager: Dial
     user = message.from_user
     text = message.text
 
-    # admin_kb = InlineKeyboardMarkup(inline_keyboard=[
-    #     [
-    #         InlineKeyboardButton(text="✅ Прийняти", callback_data=f"accept_question:{user.id}"),
-    #         InlineKeyboardButton(text="❌ Відхилити", callback_data=f"reject_question:{user.id}")
-    #     ]
-    # ])
     await request.add_question(user_id=user.id,
                                user_name=user.username,
                                problem_descr=text)

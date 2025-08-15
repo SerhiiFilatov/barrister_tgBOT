@@ -34,6 +34,11 @@ class Database:
         query = "SELECT * FROM bot_ask_lawyer WHERE id = $1"
         return await self.pool.fetchrow(query, question_id)
 
-    async def mark_question_as_executed(self, question_id: int):
-        query = "UPDATE bot_ask_lawyer SET execution = TRUE WHERE id = $1"
-        await self.pool.execute(query, question_id)
+    async def mark_question_as_executed(self, question_id: int, answer: str):
+        query = """
+            UPDATE bot_ask_lawyer
+            SET execution = TRUE,
+                bar_answer = $1
+            WHERE id = $2
+        """
+        await self.pool.execute(query, answer, question_id)
